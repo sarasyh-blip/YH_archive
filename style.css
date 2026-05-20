@@ -1,0 +1,359 @@
+/* 기본 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Pretendard', sans-serif;
+    cursor: none;
+}
+
+body {
+    background-color: #fff;
+    overflow-x: hidden;
+}
+
+/* 포인트 컬러 호버 효과 */
+a:hover,
+span:hover {
+    color: #bbe309 !important;
+    transition: color 0.2s ease;
+}
+
+.badge:hover {
+    border-color: #bbe309 !important;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+/* ── 커서 시스템 ── */
+
+/* 기본 동그라미 커서 */
+.cursor-circle {
+    position: fixed;
+    pointer-events: none;
+    width: 20px;
+    height: 20px;
+    background: #000;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.15s ease, background 0.15s ease;
+    z-index: 9999;
+}
+
+.cursor-circle.visible { opacity: 1; }
+.cursor-circle.dark { background: #fff; }
+
+/* 비행기 커서 */
+.cursor-airplane {
+    position: fixed;
+    pointer-events: none;
+    color: #000;
+    transform: translate(-50%, -50%) rotate(-135deg);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    z-index: 9999;
+    line-height: 0;
+}
+
+.cursor-airplane.above {
+    transform: translate(-50%, calc(-100% - 10px)) rotate(-135deg);
+}
+
+.cursor-airplane.colored { color: #fff; }
+.cursor-airplane.inverted { color: #441cf6; }
+.cursor-airplane.visible { opacity: 1; }
+
+/* 꽃 커서 */
+.cursor-flower {
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    z-index: 9999;
+    line-height: 0;
+}
+
+.cursor-flower.visible { opacity: 1; }
+.cursor-flower .flower-petal { fill: #bbe309; }
+.cursor-flower .flower-center { fill: white; }
+.cursor-flower.dark .flower-petal { fill: #000; }
+.cursor-flower.dark .flower-center { fill: white; }
+.cursor-flower.light .flower-petal { fill: white; }
+.cursor-flower.light .flower-center { fill: #000; }
+
+/* 슬레이트(클래퍼보드) 커서 */
+.cursor-clapperboard {
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    z-index: 9999;
+    line-height: 0;
+}
+
+.cursor-clapperboard.visible { opacity: 1; }
+.cursor-clapperboard.white img {
+    filter: brightness(0) invert(1);
+}
+
+.cursor-clapperboard.inverted img {
+    filter: brightness(0) saturate(100%) invert(27%) sepia(97%) saturate(2000%) hue-rotate(238deg) brightness(110%);
+}
+
+.cursor-clapperboard.black img {
+    filter: brightness(0);
+}
+
+/* 헤더 스타일 */
+header {
+    display: flex;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #eee;
+}
+
+.logo {
+    font-size: 1.5rem;
+    margin-right: 50px;
+}
+
+.logo span {
+    font-family: 'Playfair Display', serif !important;
+    font-style: italic;
+    font-weight: bold;
+}
+
+nav a {
+    text-decoration: none;
+    color: #000;
+    margin-right: 30px;
+    font-size: 1.1rem;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.badge {
+    padding: 8px 16px;
+    border: 1px solid #000;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.header-right {
+    margin-left: auto;
+}
+
+/* 본문 스타일 */
+main {
+    padding: 36px 24px;
+}
+
+.content-section + .content-section {
+    margin-top: 60px;
+}
+
+.main-title h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+    text-align: left;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+/* 이미지 마키(Marquee) 설정 */
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.marquee-content {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.marquee-content.reverse {
+    animation: scroll-reverse 33s linear infinite;
+}
+
+@keyframes scroll-reverse {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
+/* 호버 또는 팝업 열릴 때 멈춤 */
+.marquee-container:hover .marquee-content,
+body.popup-open .marquee-content {
+    animation-play-state: paused;
+}
+
+.item {
+    position: relative;
+    width: 350px;
+    height: 450px;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.item.landscape {
+    width: 650px;
+}
+
+.item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 호버 오버레이 */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 30px;
+}
+
+.item:hover .overlay {
+    opacity: 1;
+}
+
+.info {
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.info span {
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.main-title h1 span {
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.movie-section .overlay {
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+/* 푸터 스타일 */
+footer {
+    background-color: #000;
+    color: #fff;
+    padding: 60px 0 60px 0;
+    position: relative;
+}
+
+.footer-top {
+    padding-left: 24px;
+}
+
+.contact-info a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+.contact-label {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    color: #888;
+}
+
+.contact-label span {
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.contact-info p {
+    font-size: 1.8rem;
+    line-height: 1.4;
+    margin-bottom: 5px;
+}
+
+.contact-info p span {
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+/* ── 팝업 ── */
+.popup-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+}
+
+.popup-backdrop.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.popup-modal {
+    border-radius: 20px;
+    width: 600px;
+    max-width: 90vw;
+    min-height: 400px;
+    padding: 40px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+.popup-modal::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.72);
+    z-index: 0;
+}
+
+@keyframes modal-flip-in {
+    0%   { transform: perspective(1000px) rotateY(-90deg); opacity: 0; }
+    100% { transform: perspective(1000px) rotateY(0deg);   opacity: 1; }
+}
+
+@keyframes modal-flip-out {
+    0%   { transform: perspective(1000px) rotateY(0deg);  opacity: 1; }
+    100% { transform: perspective(1000px) rotateY(90deg); opacity: 0; }
+}
+
+.popup-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #fff;
+    cursor: none;
+    padding: 4px 8px;
+    line-height: 1;
+    z-index: 1;
+}
+

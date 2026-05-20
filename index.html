@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YH_archive</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo"><span>YH_archive</span></div>
+        <nav>
+            <a href="#">Trip</a>
+            <a href="#">Movie</a>
+        </nav>
+        <div class="header-right">
+            <span class="badge">CONTACT</span>
+        </div>
+    </header>
+
+    <main>
+        <!-- Trip 섹션 -->
+        <section class="content-section trip-section">
+            <div class="main-title">
+                <h1><span>Trip</span></h1>
+            </div>
+
+            <div class="marquee-container">
+                <div class="marquee-content" id="marquee">
+                    <div class="item">
+                        <img src="Trip_archive/01_Cebu,%202024/1.jpg" alt="Cebu">
+                        <div class="overlay">
+                            <div class="info"><span>Cebu, 2024</span></div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="Trip_archive/02_Hongkong,%202025/1.jpg" alt="Hongkong">
+                        <div class="overlay">
+                            <div class="info"><span>Hongkong, 2025</span></div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="Trip_archive/03_Nhatrang,%202025/1.jpg" alt="Nhatrang">
+                        <div class="overlay">
+                            <div class="info"><span>Nhatrang, 2025</span></div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="Trip_archive/04_Shanghai,%202026/1.jpg" alt="Shanghai">
+                        <div class="overlay">
+                            <div class="info"><span>Shanghai, 2026</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Movie 섹션 -->
+        <section class="content-section movie-section">
+            <div class="main-title">
+                <h1><span>Movie</span></h1>
+            </div>
+
+            <div class="marquee-container">
+                <div class="marquee-content reverse" id="marquee-movie">
+                    <div class="item landscape">
+                        <img src="Movie_archive/1.%20Top%20Gun,%201987.jpg" alt="Top Gun">
+                        <div class="overlay">
+                            <div class="info"><span>Top Gun, 1987</span></div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="Movie_archive/2.%20the%20Taste%20of%20Things,%202023.jpg" alt="the Taste of Things">
+                        <div class="overlay">
+                            <div class="info"><span>the Taste of Things, 2023</span></div>
+                        </div>
+                    </div>
+                    <div class="item landscape">
+                        <img src="Movie_archive/3.%20The%20Devil%20Wears%20Prada%202,%202026.jpg" alt="The Devil Wears Prada 2">
+                        <div class="overlay">
+                            <div class="info"><span>The Devil Wears Prada 2, 2026</span></div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="Movie_archive/4.%20The%20Shape%20of%20Water,%202018.jpg" alt="The Shape of Water">
+                        <div class="overlay">
+                            <div class="info"><span>The Shape of Water, 2018</span></div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="Movie_archive/5.%20메소드연기,%202026.jpg" alt="메소드연기">
+                        <div class="overlay">
+                            <div class="info"><span>메소드연기, 2026</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-top">
+            <div class="contact-label"><span>CONTACT</span></div>
+            <div class="contact-info">
+                <p><span>sarasyh@naver.com</span></p>
+                <p><span>+82 10 5495 4740</span></p>
+                <p><a href="https://www.instagram.com/movie__replay?igsh=MWhvNzNzZW54cWtyOQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer"><span>@movie_replay</span></a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 팝업 -->
+    <div class="popup-backdrop" id="popupBackdrop">
+        <div class="popup-modal" id="popupModal">
+            <button class="popup-close" id="popupClose">✕</button>
+            <!-- 내용은 나중에 추가 -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
