@@ -177,16 +177,16 @@ main {
 }
 
 @keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(calc(var(--set-width) * -1)); }
 }
 
 .marquee-content.reverse {
-    animation: scroll-reverse 33s linear infinite;
+    animation: scroll-reverse 71s linear infinite;
 }
 
 @keyframes scroll-reverse {
-    0% { transform: translateX(-50%); }
+    0%   { transform: translateX(calc(var(--set-width) * -1)); }
     100% { transform: translateX(0); }
 }
 
@@ -343,6 +343,84 @@ footer {
     100% { transform: perspective(1000px) rotateY(90deg); opacity: 0; }
 }
 
+/* ── 그리드 페이지 ── */
+.page-main {
+    padding: 36px 24px 80px;
+}
+
+.page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 48px;
+}
+
+.trip-group {
+    margin-bottom: 64px;
+}
+
+.trip-group-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.photo-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.photo-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 20px;
+}
+
+.photo-caption {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    color: #000;
+}
+
+/* movie 페이지 justified 그리드 */
+.movie-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.movie-grid .photo-item {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-grid .photo-item img {
+    display: block;
+    height: 380px;
+    width: auto;
+    border-radius: 20px;
+}
+
+.movie-grid .photo-caption {
+    font-family: 'Bebas Neue', 'Do Hyeon', sans-serif;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    color: #000;
+}
+
+/* 팝업 닫기 버튼 */
 .popup-close {
     position: absolute;
     top: 16px;
@@ -356,4 +434,3 @@ footer {
     line-height: 1;
     z-index: 1;
 }
-

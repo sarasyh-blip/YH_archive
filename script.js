@@ -1,3 +1,67 @@
+// ── Movie 페이지 Justified Layout ──
+function justifyMovieGrid() {
+    const grid = document.querySelector('.movie-grid');
+    if (!grid) return;
+
+    const items = Array.from(grid.querySelectorAll('.photo-item'));
+    if (!items.length) return;
+
+    const GAP = 20;
+    const TARGET_HEIGHT = 380;
+
+    function layout() {
+        const containerWidth = grid.clientWidth;
+        let i = 0;
+
+        while (i < items.length) {
+            const rowItems = [];
+            let rowNaturalWidth = 0;
+
+            // 행에 넣을 아이템 수집
+            while (i < items.length) {
+                const img = items[i].querySelector('img');
+                const ratio = img.naturalWidth / img.naturalHeight || 1;
+                const itemW = TARGET_HEIGHT * ratio;
+                const addedGap = rowItems.length > 0 ? GAP : 0;
+
+                if (rowItems.length > 0 && rowNaturalWidth + addedGap + itemW > containerWidth) break;
+
+                rowNaturalWidth += addedGap + itemW;
+                rowItems.push({ el: items[i], img, ratio });
+                i++;
+            }
+
+            if (!rowItems.length) { i++; continue; }
+
+            // 행 전체 너비를 container에 맞게 스케일
+            const totalGaps = (rowItems.length - 1) * GAP;
+            const scale = (containerWidth - totalGaps) /
+                          rowItems.reduce((s, r) => s + TARGET_HEIGHT * r.ratio, 0);
+            const rowH = TARGET_HEIGHT * scale;
+
+            rowItems.forEach(({ el, img, ratio }) => {
+                const w = Math.floor(rowH * ratio);
+                el.style.width = w + 'px';
+                img.style.width = w + 'px';
+                img.style.height = Math.floor(rowH) + 'px';
+            });
+        }
+    }
+
+    // 모든 이미지 로드 후 레이아웃 실행
+    const imgs = items.map(it => it.querySelector('img'));
+    let pending = imgs.length;
+    function onEach() { if (--pending === 0) layout(); }
+    imgs.forEach(img => {
+        if (img.complete && img.naturalWidth > 0) onEach();
+        else { img.addEventListener('load', onEach); img.addEventListener('error', onEach); }
+    });
+
+    window.addEventListener('resize', layout);
+}
+
+window.addEventListener('load', justifyMovieGrid);
+
 // 마키 무한 루프 구현
 ['marquee', 'marquee-movie'].forEach(id => {
     const el = document.getElementById(id);
@@ -102,40 +166,37 @@ const popupBackdrop = document.getElementById('popupBackdrop');
 const popupModal    = document.getElementById('popupModal');
 const popupClose    = document.getElementById('popupClose');
 
-document.querySelectorAll('.item').forEach(item => {
-    item.addEventListener('click', () => {
-        // 클릭한 카드의 이미지를 팝업 배경으로 설정
-        const imgSrc = item.querySelector('img').src;
-        popupModal.style.backgroundImage = `url('${imgSrc}')`;
-
-        // 카드 플립 아웃 (절반 회전으로 사라지는 효과)
-        item.style.transition = 'transform 0.2s ease';
-        item.style.transform  = 'perspective(1000px) rotateY(90deg)';
-
-        setTimeout(() => {
-            item.style.transition = '';
-            item.style.transform  = '';
-            // 팝업 플립 인
-            popupModal.style.animation = 'modal-flip-in 0.3s ease forwards';
-            popupBackdrop.classList.add('visible');
-            document.body.classList.add('popup-open');
-        }, 200);
+if (popupBackdrop && popupModal && popupClose) {
+    document.querySelectorAll('.item').forEach(item => {
+        item.addEventListener('click', () => {
+            const imgSrc = item.querySelector('img').src;
+            popupModal.style.backgroundImage = `url('${imgSrc}')`;
+            item.style.transition = 'transform 0.2s ease';
+            item.style.transform  = 'perspective(1000px) rotateY(90deg)';
+            setTimeout(() => {
+                item.style.transition = '';
+                item.style.transform  = '';
+                popupModal.style.animation = 'modal-flip-in 0.3s ease forwards';
+                popupBackdrop.classList.add('visible');
+                document.body.classList.add('popup-open');
+            }, 200);
+        });
     });
-});
 
-function closePopup() {
-    document.body.classList.remove('popup-open');
-    popupModal.style.animation = 'modal-flip-out 0.22s ease forwards';
-    setTimeout(() => {
-        popupBackdrop.classList.remove('visible');
-        popupModal.style.animation = '';
-    }, 230);
+    function closePopup() {
+        document.body.classList.remove('popup-open');
+        popupModal.style.animation = 'modal-flip-out 0.22s ease forwards';
+        setTimeout(() => {
+            popupBackdrop.classList.remove('visible');
+            popupModal.style.animation = '';
+        }, 230);
+    }
+
+    popupClose.addEventListener('click', closePopup);
+    popupBackdrop.addEventListener('click', (e) => {
+        if (e.target === popupBackdrop) closePopup();
+    });
 }
-
-popupClose.addEventListener('click', closePopup);
-popupBackdrop.addEventListener('click', (e) => {
-    if (e.target === popupBackdrop) closePopup();
-});
 
 document.addEventListener('mouseout', (e) => {
     if (!e.relatedTarget) {
